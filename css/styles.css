@@ -62,6 +62,9 @@ h3 {
   margin: 0 auto;
   padding: 60px 0;
 }
+.content-wrap > p{
+  line-height: 1.8;
+}
 .content-wrap2 {
   max-width: 920px;
   width: 95%;
@@ -181,6 +184,9 @@ span{display: inline;
 .project-item h3 {
   margin-top: 0;
 }
+.project-item p{
+  line-height: 1.75;
+}
 
 
 /* Work Experience
@@ -197,15 +203,18 @@ span{display: inline;
   background-image: url(../images/joanna-kosinska-unsplash.jpg);
   background-size: cover;
   background-position: top right;
-  padding-bottom: 100px;
+  padding-bottom: 50px;
 }
 .education p {
   width: 60%;
+  line-height: 1.8;
 }
 .education a{
   color:black;
 }
-
+.education h3{
+  padding-top: 20px;
+}
 
 /* Contact Info
 ------------------------------------*/
