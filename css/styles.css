@@ -129,7 +129,7 @@ span{display: inline;
   overflow: hidden; /* Ensure the image stays within bounds */
   border-radius: 45%; /* Circular image */
   border: 3px solid #185e3f; /* Optional border */
-  margin-left: 80px;
+  margin-left: 80px !important;
 }
 
 .profile-pic img {
@@ -338,13 +338,13 @@ footer {
     padding: 5px;
   }
   .profile-pic {
-    margin-left: 0px;
+    margin-left: 0px !important;
   }
   .profile-content, footer {
     text-align: center;
   }
   .grd{
-    display: block;
+    display: block !important;
     }
   .p3,.p4{
       border-bottom: 1px dashed #0B3743 !important;
