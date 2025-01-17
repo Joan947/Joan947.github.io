@@ -230,7 +230,7 @@ span{display: inline;
   font-size: 15px;
 }
 .grd{
-display: grid !important;
+display: grid;
 grid-template-columns: 1fr 1fr;
 gap: 25px;
 }
@@ -312,9 +312,6 @@ footer {
     display: flex;
     justify-content: center;
   }
-  .grd{
-    display: block;
-    }
 }
 
 @media screen and (max-width:749px){
