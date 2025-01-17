@@ -7,7 +7,19 @@ https://coolors.co/f7fff7-343434-2f3061-ffe66d-a1c6d7
 #FFE66D - yellow
 #A1C6D7 - blue light
 */
+/* 
+COLOR PALETTE2
+https://coolors.co/4cb8c3-93dae1-ffffff-0b3743-246e7c
+FFFFFF - white
+4CB8C3 - verdigris
+93DAE1 - non photo blue
+0B3743 - midnight green
+246E7C - carribean current
 
+
+
+
+*/
 
 /* Global styles
 ------------------------------------*/
@@ -23,12 +35,13 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Montserrat', sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.5;
+  background-color: black;
 }
 img {
-  width: 250px;
-  height: 320px;
+  width: 240px;
+  height: 310px;
 }
 a {
   color: #F6BE00;
@@ -66,8 +79,8 @@ h3 {
   line-height: 1.8;
 }
 .content-wrap2 {
-  max-width: 920px;
-  width: 95%;
+  max-width: 95%;
+  width: 78%;
   margin: 0 auto;
   padding: 40px 0;
 }
@@ -81,7 +94,7 @@ h3 {
   margin: 0;
 }
 .divider > section {
-  border-bottom: 1px dashed #343434;
+  border-bottom: 1px dashed #0B3743;
   padding: 25px 0;
 }
 .divider > section:last-of-type {
@@ -91,14 +104,39 @@ h3 {
 
 /* Profile
 ------------------------------------*/
-header {
-  background: #185E3F;
-  color: #F7FFF7;
+ .profile{
+  display: flex;
+  align-items: center; /* Align content vertically */
+  justify-content:space-around ; /* Add space between text and image */
+  background: #0B3743;
+  color: #FFFFFF;
+  gap: 20px;
+  flex-wrap: wrap!important;
 }
 span{display: inline;
   color: #F6BE00;}
+.profile-content {
+    flex: 1; /* Make the text section take up available space */
+    padding-right: 20px; /* Add spacing on the right */
+    margin-left: 20px !important;
+    flex-wrap: wrap !important;
+}
 
+.profile-pic {
+  flex: 0 0 280px; /* Set the image container size */
+  width: 280px; /* Fixed width */
+  height: 280px; /* Fixed height */
+  overflow: hidden; /* Ensure the image stays within bounds */
+  border-radius: 45%; /* Circular image */
+  border: 3px solid #185e3f; /* Optional border */
+  margin-left: 80px;
+}
 
+.profile-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image scales well */
+}
 /* typing effect
 ------------------------------------*/
 .typed {
@@ -141,7 +179,7 @@ span{display: inline;
   position: relative; 
   /* height: 100vh;
   width: 100%; */
-  background-color: #F1F7ED;
+  background-color: #edfdff;
  
 }
 .img-wrap::before {    
@@ -158,6 +196,7 @@ span{display: inline;
   background-repeat: no-repeat;
   
 }
+
 .projects a {
   color: #185E3F;
   align-items: end;
@@ -180,21 +219,35 @@ span{display: inline;
   }
 .project-item{
   overflow: hidden;
+  border-bottom: 1px dashed #0B3743;
+  padding: 25px 0;
 }
 .project-item h3 {
   margin-top: 0;
 }
 .project-item p{
   line-height: 1.75;
+  font-size: 15px;
 }
-
-
+.grd{
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 25px;
+}
+.p3,.p4{
+  border-bottom:  none !important;
+}
+.p3,.p4{
+  border-bottom: 1px dashed #0B3743;;
+}
 /* Work Experience
 ------------------------------------*/
 .work-experience {
-  background: #7CA982;
+  background: #378891;
 }
-
+.work-experience a{
+  color: #000 !important;
+}
 
 
 /* Education
@@ -202,25 +255,30 @@ span{display: inline;
 .education {
   background-image: url(../images/joanna-kosinska-unsplash.jpg);
   background-size: cover;
+  opacity: 0.85;
   background-position: top right;
   padding-bottom: 50px;
 }
+
 .education p {
   width: 60%;
   line-height: 1.8;
+  z-index: 2;
 }
 .education a{
   color:black;
+  z-index: 2;
 }
 .education h3{
   padding-top: 20px;
+  z-index: 2;
 }
 
 /* Contact Info
 ------------------------------------*/
 footer {
-  background: #151515;
-  color: #F7FFF7;
+  background: #07242c;
+  color: #FFFFFF;
 }
 .contact-list {
   list-style-type: none;
@@ -235,14 +293,16 @@ footer {
 /* Responsive
 ------------------------------------*/
 @media screen and (min-width:750px){
-  header, footer {
+   footer {
     text-align: center;
   }
   .project-item img {
     float: left;
     margin-right: 20px;
   }
-
+  .profile-pic {
+    margin-left: 10px;
+  }
   .job-item {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -252,6 +312,9 @@ footer {
     display: flex;
     justify-content: center;
   }
+  .grd{
+    display: block;
+    }
 }
 
 @media screen and (max-width:749px){
@@ -273,5 +336,17 @@ footer {
   }
   .contact-list a {
     padding: 5px;
+  }
+  .profile-pic {
+    margin-left: 0px;
+  }
+  .profile-content, footer {
+    text-align: center;
+  }
+  .grd{
+    display: block;
+    }
+  .p3,.p4{
+      border-bottom: 1px dashed #0B3743 !important;
   }
 }

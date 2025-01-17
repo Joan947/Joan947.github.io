@@ -12,12 +12,14 @@
   <body>
     <main>
       <!-- ***************  ABOUT / PROFILE  **************** -->
-      <header>
-        <div class="content-wrap">
+      <div class="profile">
+        <div class="profile-pic">
+          <img src="images/profilepic.jpeg" alt="Profile Picture">
+        </div>
+        <div class="content-wrap profile-content">
           <h1 class ="">Joana Konadu Owusu</h1>
-          <h2>Computer Vision and Deep Learning Enthusiast</h2>
-
-          <p>l am a Masters in Computer Science student at the University of Wyoming working with advisor <a href="https://sheshap.github.io/"> <br> Dr.Shivanand Venkanna Sheshappanavar</a> in the Geometric Intelligence Lab. My research interest is in Computer Vision and Deep Learning targeted for Assistive Technology development, Healthcare and Education.</p> 
+          <h2>Computer Vision and Deep Learning Researcher</h2>
+          <p>l am a Masters in Computer Science student at the University of Wyoming working with advisor <a href="https://sheshap.github.io/"> <br> Dr.Shivanand Venkanna Sheshappanavar</a> in the Geometric Intelligence Research Lab. My research interest is in Computer Vision and Deep Learning targeted for Assistive Technology development, Healthcare and Education.</p> 
           <!-- <p> 
             I am proficient in : 
              <span className="t"> Web Based Technologies</span>
@@ -27,45 +29,55 @@
           ,
          and 
           <span className="t"> Python </span>
-           
       </p> -->
           <a href="Joana_Konadu_Owusu_CV.pdf" 
           download="Joana_Konadu_Owusu_CV.pdf"
           target="_blank"
           class="flat-button" >DOWNLOAD MY CV</a>
         </div>
-      </header>
+      </div>
 
       <!-- ************ PROJECTS / PORTFOLIO  ************** -->
       <section class="img-wrap">
-        <div class="content-wrap divider projects">
+        <div class="content-wrap2 projects">
           <h2>Featured Projects</h2>
           <p>View selected projects below. More information about these and other additional projects can be found on 
             <a href="https://github.com/Joan947">My GitHub Page</a>.</p>
-
+          <div class="grd col-1 ">  
             <!-- Project 1 -->
-          <section class="project-item">
-            <img src="images/car.png" alt="Self Driving Car Simulation on a road">
-            <h3>Self Driving Car Simulation</h3>
-            <p>An app to simulate a self driving car using a feed forward neural network, fitness function and genetic algorithms for detect collisions and find the best path.</p>
-            <a class="btn" href="https://joan947.github.io/ML_CAR_Game/" target="_blank">Visit Live Site</a>
-          </section>
-
-          <!-- Project 2 -->
-          <section class="project-item">
-            <img src="images/mobile.jpg" alt="mobile device">
-            <h3>A Machine Learning Android App Project</h3>
-            <p>An mobile app developed for the visually impaired incorporating Computer Vision and Deep Learning algorithms</p>
-            <a class="btn" href="https://github.com/Joan947/AndroidProject" target="_blank">View Code</a>
+            <section class="project-item p1">
+              <img src="images/car.png" alt="Self Driving Car Simulation on a road">
+              <h3>Self Driving Car Simulation</h3>
+              <p>An app to simulate a self driving car using a feed forward neural network, fitness function and genetic algorithms for detect collisions and find the best path.</p>
+              <a class="btn" href="https://joan947.github.io/ML_CAR_Game/" target="_blank">Visit Live Site</a>
             </section>
-
-          <!-- Project 3 -->
-          <section class="project-item">
-            <img src="images/blog.png" alt="blog page">
-            <h3>Online Blog</h3>
-            <p>A blog designed using React JS for front end, Node JS for backend and Mongo DB for storing data about users and comments</p>
-            <a class="btn" href="https://github.com/Joan947/SimpleBlog" target="_blank">View Code</a>
-          </section>
+  
+            <!-- Project 2 -->
+            <section class=" project-item p2">
+              <img src="images/mobile.jpg" alt="mobile device">
+              <h3>A CV/DL Android App Project</h3>
+              <p>An mobile app developed for the visually impaired incorporating Computer Vision and Deep Learning algorithms</p>
+              <a class="btn" href="https://github.com/Joan947/AndroidProject" target="_blank">View Code</a>
+              </section>
+          </div>
+          
+          <div class="grd col-2"><!-- Project 3 -->
+            <section class="project-item p3">
+              <img src="images/catdog.png" alt=" catdogs">
+              <h3>CNN-for-CatDog-Classification</h3>
+              <p>Developed a CNN for Cats and Dogs classification using their audio spectrograph images.</p>
+              <a class="btn" href="https://github.com/Joan947/CNN-for-CatDog-Spectrograph-Classification" target="_blank">View Code</a>
+            </section>
+  
+            <!-- Project 4 -->
+            <section class="project-item p4">
+              <img src="images/astar.png" alt=" path visualization on map">
+              <h3>Estimating Optimal Path Finding for Emergency Response </h3>
+              <p> Implemented AI search algorithms to estimate shortest path during emergency flood response using Cheyenne highway maps..</p>
+              <a class="btn" href="https://github.com/Joan947/Route_optimization" target="_blank">View Code</a>
+            </section>
+          </div>
+          
        </div>
       </section>
         
@@ -79,12 +91,12 @@
           <section class="job-item">
             <div class="job-details">
               <h3>Graduate Research Assistant</h3>
-              <p>Geometric Intelligence Lab - EECS</p>
+              <p>Geometric Intelligence Research Lab - EECS</p>
               <p>University of Wyoming</p>
               <p>August 2024-Present</p>
             </div>
             <div class="job-summary">
-              <p>I conduct research at the Geometric Intelligence Lab focusing on 3D Computer Vision for the Visually Impaired. My advisor is <a href="https://sheshap.github.io/"> <br> Dr. Shivanand Venkanna Sheshappanavar</a>.</p>
+              <p>I conduct research focusing on specializing in enhancing or developing deep learning and computer vision models for image segmentation, pose estimation and object classification for the Visually Impaired. My advisor is <a href="https://sheshap.github.io/"> <br> Dr. Shivanand Venkanna Sheshappanavar</a>.</p>
             </div>
           </section>
           <section class="job-item">
@@ -108,8 +120,14 @@
             </div>
             <div class="job-summary">
                <p>
-                Oversaw and coordinated educational technology initiatives that enhance both teaching and learning in the school.</li>
-               </p> </div>
+                <ul>
+                  <li> Administered and maintained the school’s database systems and networks while maximizing the information technology tools and systems’ efficiency and effectiveness</li>
+                  <li> Performed Network and System administration tasks on Windows Server and SAP software.</li>
+                  <li> Reviewed schools’ system and network performance to make proactive adjustments based on established IT policies.</li>
+                </ul>
+               </p> 
+               
+              </div>
           </section>
 
           <!-- Job 3 -->
