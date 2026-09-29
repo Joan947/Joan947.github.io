@@ -3,22 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="name_icon.ico" />
+    <link rel="icon" href="name_icon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="images/branding/favicon.svg?v=3" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <title>Joana Konadu Owusu</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600;6..96,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css?v=8" />
+      <script>
+      // On reload, start at the top instead of jumping to the last section (#contact etc.)
+      (function () {
+        var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+        if (nav && nav.type === 'reload') {
+          if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+          if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+          window.addEventListener('load', function () { window.scrollTo(0, 0); });
+        }
+      })();
+    </script>
   </head>
   <body>
     <header class="site-header">
       <div class="nav-wrap">
-        <a href="#top" class="brand">Joana Konadu Owusu</a>
+        <a href="#top" class="brand"><img src="images/branding/jko.svg" alt="" width="60" height="60" />Joana Konadu Owusu</a>
         <nav class="site-nav" aria-label="Primary navigation">
-          <a href="#news">News</a>
-          <a href="#projects">Project</a>
-          <a href="#experience">Experience</a>
-          <a href="#education">Education</a>
-          <a href="#publications">Publication</a>
+          <a href="pages/blog.html">News</a>
+          <a href="pages/research.html">Work</a>
+          <a href="#experience">Background</a>
+          <a href="pages/gallery.html">Gallery</a>
           <a href="#contact">Contact</a>
         </nav>
       </div>
@@ -27,9 +41,12 @@
     <main id="top">
       <section class="profile hero-section">
         <div class="content-wrap hero-layout">
+          <div class="profile-pic">
+            <img src="images/grad_profile.jpg" alt="Graduation portrait of Joana Konadu Owusu" />
+          </div>
           <div class="profile-content">
             <p class="eyebrow">Computer Vision • Deep Learning • Assistive Technology</p>
-            <h1  class="typed typed-line-1">Hi! I am Joana</h1>
+            <h1 class="typed typed-line-1" aria-label="Hi! I am Joana"><span class="hi-part" aria-hidden="true">Hi</span><span class="hi-bang" aria-hidden="true">!</span><span class="hi-rest" aria-hidden="true"> I am Joana</span></h1>
             <h2  class="typed typed-line-2">A Computer Vision and Deep Learning Researcher</h2>
             <p>
               I am a Master in Computer Science student at the University of Wyoming working with
@@ -38,12 +55,8 @@
               for assistive technology, healthcare, and education.
             </p>
             <div class="hero-actions">
-              <a href="Joana_Owusu_CV.pdf" download="Joana_Owusu_CV.pdf" target="_blank" class="flat-button">Download CV</a>
-              <a href="#contact" class="flat-button button-secondary">Contact Me</a>
+              <a href="Joana_Konadu_Owusu_CV.pdf" download="Joana_Owusu_CV.pdf" target="_blank" class="flat-button">Download CV</a>
             </div>
-          </div>
-          <div class="profile-pic">
-            <img src="images/profilepic.jpeg" alt="Portrait of Joana Konadu Owusu" />
           </div>
         </div>
       </section>
@@ -54,13 +67,8 @@
             <h2>Recent News</h2>
           </div>
 
-          <div class="pub-card news-card">
-            <div class="pub-copy">
-              <h3>Paper Accepted to WiCV at CVPR 2026  🎉 </h3>
-              <p>
-              SAM3Count, have been accepted to the Women in Computer Vision (WiCV) Workshop at CVPR 2026 in Denver, Colorado, taking place June 3–7, 2026. I will be giving an oral presentation on this work, which focuses on open-vocabulary counting in images and videos under challenging conditions such as occlusion, fragmentation, and identity switches. </p>
-            </div>
-          </div>
+          <div data-recent-news></div>
+          <noscript><p>Visit the blog to read my news and updates.</p></noscript>
         </div>
       </section>
 
@@ -70,37 +78,12 @@
             <h2>Projects</h2>
             <p>
               A few featured projects are highlighted below. More can be found on
-              <a href="https://github.com/Joan947" target="_blank" rel="noreferrer">my GitHub page</a>.
+              <a href="pages/projects.html">my projects page</a>.
             </p>
           </div>
-
           <div class="project-grid">
-            <section class="project-item card">
-              <img src="images/sam3count.png" alt="SAM3Count architecture diagram" />
-              <div>
-                <h3>SAM3Count</h3>
-                <p>
-                  A zero-shot open-vocabulary counting framework for images and videos built on SAM3,
-                  with adaptive ROI-based refinement for dense scenes and stronger temporal consistency in videos.
-                </p>
-                <a class="btn" href="https://github.com/Joan947/SAM3Count">Visit Repo</a>
-              </div>
-            </section>
-
-            <!-- <section class="project-item card">
-              <img src="images/arc_f11.png" alt="OVAC architecture diagram" />
-              <div>
-                <h3>Open Vocabulary Adaptive Counting</h3>
-                <p>
-                  A text-prompted counting framework for images and videos that achieves state-of-the-art
-                  performance on open-vocabulary counting tasks.
-                </p>
-                <a class="btn" href="https://github.com/Joan947/OVAC" target="_blank" rel="noreferrer">Visit Repo</a>
-              </div>
-            </section> -->
-
-            <section class="project-item card">
-              <img src="images/car.png" alt="Self-driving car simulation on a road" />
+<section class="project-item card">
+              <img src="images/project/car.png" alt="Self-driving car simulation on a road" />
               <div>
                 <h3>Self Driving Car Simulation</h3>
                 <p>
@@ -110,21 +93,8 @@
                 <a class="btn" href="https://joan947.github.io/ML_CAR_Game/" target="_blank" rel="noreferrer">Visit Live Site</a>
               </div>
             </section>
-
-            <section class="project-item card">
-              <img src="images/xpt.png" alt="XPT architecture diagram" />
-              <div>
-                <h3>XPT: Enhanced Point Transformer</h3>
-                <p>
-                  An efficient and stable transformer architecture for 3D point cloud understanding that
-                  reduces computational cost and training time while maintaining strong accuracy.
-                </p>
-                <a class="btn" href="https://github.com/Joan947/XPT" target="_blank" rel="noreferrer">Visit Repo</a>
-              </div>
-            </section>
-
-            <section class="project-item card">
-              <img src="images/mobile.jpg" alt="Mobile device" />
+<section class="project-item card">
+              <img src="images/project/mobile.jpg" alt="Mobile device" />
               <div>
                 <h3>A Mobile App for the Visually Impaired</h3>
                 <p>
@@ -132,30 +102,6 @@
                   visually impaired users in real-world settings.
                 </p>
                 <a class="btn" href="https://github.com/Joan947/AndroidProject" target="_blank" rel="noreferrer">Visit Repo</a>
-              </div>
-            </section>
-
-            <section class="project-item card">
-              <img src="images/catdog.png" alt="Cats and dogs example" />
-              <div>
-                <h3>CNN for Cat and Dog Classification</h3>
-                <p>
-                  A CNN-based classification project using audio spectrogram images derived from cat and dog
-                  sounds.
-                </p>
-                <a class="btn" href="https://github.com/Joan947/CNN-for-CatDog-Spectrograph-Classification" target="_blank" rel="noreferrer">Visit Repo</a>
-              </div>
-            </section>
-
-            <section class="project-item card">
-              <img src="images/astar.png" alt="Path visualization on a map" />
-              <div>
-                <h3>Optimal Path Finding for Emergency Response</h3>
-                <p>
-                  Implemented AI search algorithms to estimate shortest paths for emergency flood response
-                  using Cheyenne highway maps.
-                </p>
-                <a class="btn" href="https://github.com/Joan947/Route_optimization" target="_blank" rel="noreferrer">Visit Repo</a>
               </div>
             </section>
           </div>
@@ -242,7 +188,13 @@
 
           <section class="edu-card">
             <h3>University of Wyoming</h3>
-            <p>Master of Science (MSc) Computer Science, 2024 - Present</p>
+            <p>Doctor of Philosophy (PhD) Computer Science, June 2026 - Present</p>
+            <p>GPA 4.0</p>
+          </section>
+
+          <section class="edu-card">
+            <h3>University of Wyoming</h3>
+            <p>Master of Science (MSc) Computer Science, August 2024 - May 2026</p>
             <p>GPA 4.0</p>
           </section>
 
@@ -258,11 +210,11 @@
               <div class="tag-list">
                 <span class="tag">Analysis Of Algorithms</span>
                 <span class="tag">Computer Animations</span>
-                <span class="tag">Intro to Deep Learning</span>
-                <span class="tag">Advances in Deep Learning</span>
+                <span class="tag">Intro &amp; Adv Deep Learning</span>
                 <span class="tag">Intro to LLMs</span>
-                <span class="tag">Distributed Algorithms &amp; Systems</span>
-                <span class="tag">High Performance Computing</span>
+                <span class="tag">Dist. Algorithms &amp; Systems</span>
+                <span class="tag">HPC</span>
+                <span class="tag">Data Mining &amp; ML</span>
               </div>
             </section>
 
@@ -270,9 +222,9 @@
               <h3>Skills</h3>
               <div class="skill-block">
                 <p><strong>Languages:</strong> Python, C++, Java, JavaScript, SQL</p>
-                <p><strong>ML / CV:</strong> PyTorch, TensorFlow, OpenCV, Transformers, Segmentation, Tracking</p>
-                <p><strong>Systems:</strong> Linux, Git, Docker, Slurm, High Performance Computing</p>
-                <p><strong>Focus Areas:</strong> Computer Vision, Deep Learning, Assistive Technology, Applied AI</p>
+                <p><strong>ML / CV Tools:</strong> PyTorch, TensorFlow, OpenCV</p>
+                <p><strong>Systems:</strong> Linux, Git, Docker, Slurm </p>
+                <p><strong>Focus Areas:</strong> Computer Vision, Deep Learning</p>
               </div>
             </section>
           </div>
@@ -280,20 +232,22 @@
       </section>
 
       
-      <section id="publications" class="publications section-block">
+      <section id="research" class="publications section-block">
         <div class="content-wrap item-details">
           <div class="section-heading">
-            <h2>Research &amp; Publications</h2>
+            <h2>Research</h2>
+            <p>
+              My research explores computer vision, object counting, and 3D scene understanding.
+              Find more on <a href="pages/publications.html" style="color: var(--color-mid);">my research page</a>.
+            </p>
           </div>
-
           <section class="pub-item pub-card">
             <div class="pub-copy">
-              <h3>OVAC: Open Vocabulary Adaptive Counting in Images and Videos</h3>
-              <p>Joana Konadu Owusu, Shivanand Venkanna Sheshappanavar • Under review for WACV 2027 </p>
-              <div class="pub-links" aria-label="OVAC publication links">
-                <a href="coming-soon.html" class="pub-link">Paper</a>
-                <a href="https://github.com/Joan947/OVAC" class="pub-link">Code</a>
-                <!-- <a href="coming-soon.html" class="pub-link">BibTeX</a> -->
+              <h3>IDTCount: Counting Every Instance Once in Open Vocabulary Video Counting</h3>
+              <p>Joana Konadu Owusu, Shivanand Venkanna Sheshappanavar • WACV 2027 · Under review</p>
+              <div class="pub-links">
+                <a href="https://openreview.net/pdf?id=FNnVIBdmQP" class="pub-link" target="_blank" rel="noreferrer">Paper</a>
+                <a href="https://github.com/Joan947/OVAC" class="pub-link" target="_blank" rel="noreferrer">Code</a>
               </div>
             </div>
           </section>
@@ -301,26 +255,13 @@
           <section class="pub-item pub-card">
             <div class="pub-copy">
               <h3>SAM3Count for Zero-Shot Open Vocabulary Counting in Images and Videos</h3>
-              <p>Joana Konadu Owusu, Shivanand Venkanna Sheshappanavar • Oral • CVPR Workshop 2026</p>
-              <div class="pub-links" aria-label="SAM3Count publication links">
-                <a href="https://openaccess.thecvf.com/content/CVPR2026W/WiCV/html/Owusu_SAM3Count_for_Zero-Shot_Open_Vocabulary_Counting_in_Images_and_Videos_CVPRW_2026_paper.html" class="pub-link">Paper</a>
+              <p>Joana Konadu Owusu, Shivanand Venkanna Sheshappanavar • WiCV · CVPR Workshops 2026 · Oral</p>
+              <div class="pub-links">
+                <a href="https://openaccess.thecvf.com/content/CVPR2026W/WiCV/html/Owusu_SAM3Count_for_Zero-Shot_Open_Vocabulary_Counting_in_Images_and_Videos_CVPRW_2026_paper.html" class="pub-link" target="_blank" rel="noreferrer">Paper</a>
                 <a href="https://github.com/Joan947/SAM3Count" class="pub-link" target="_blank" rel="noreferrer">Code</a>
               </div>
             </div>
           </section>
-
-          <section class="pub-item pub-card">
-            <div class="pub-copy">
-              <h3>XPT: Enhanced Point Transformer V3</h3>
-              <p>Research on improving the efficiency and stability of point transformer models for 3D point cloud understanding.</p>
-              <div class="pub-links" aria-label="XPT publication links">
-                <a href="https://drive.google.com/file/d/1WwgbGLvQV4104DEeLnZeuevfpYZXNc57/view?usp=sharing" class="pub-link">Manuscript</a>
-                <a href="https://github.com/Joan947/XPT" class="pub-link" target="_blank" rel="noreferrer">Code</a>
-              </div>
-            </div>
-          </section>
-
-
         </div>
       </section>
 
@@ -338,13 +279,22 @@
       </footer>
     </main>
 
+    <script src="js/posts.js?v=3" defer></script>
+    <script src="js/news.js?v=3" defer></script>
     <script>
       const navLinks = document.querySelectorAll('.site-nav a');
-      const sections = document.querySelectorAll('#news, #projects, #experience, #education, #publications, #contact');
+      const sections = document.querySelectorAll('#news, #projects, #research, #experience, #education, #contact');
 
       function setActiveLink(id) {
+        // Background covers both work experience and education.
+        if (id === 'education') id = 'experience';
         navLinks.forEach((link) => {
-          const isActive = link.getAttribute('href') === `#${id}`;
+          const href = link.getAttribute('href');
+          const isActive = (id === 'projects' || id === 'research')
+            ? href === 'research.html'
+            : id === 'news'
+              ? href === 'blog.html'
+              : href === `#${id}`;
           link.classList.toggle('active', isActive);
           if (isActive) {
             link.setAttribute('aria-current', 'page');

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="name_icon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="images/branding/jko.svg" />
+    <title>Gallery | Joana Konadu Owusu</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <style>
+      .gallery-heading { color: #0b3743; margin-bottom: 1rem; }
+      .album-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px 40px; padding: 18px 12px 32px; }
+      .album-card { position: relative; display: block; width: 100%; aspect-ratio: 1.6; padding: 0; border: 0; background: transparent; cursor: pointer; text-align: left; color: white; font: inherit; isolation: isolate; }
+      .album-card > img, .album-cover { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 16px; box-shadow: 0 8px 22px rgba(11,55,67,.18); }
+      .album-card > img { object-fit: cover; border: 3px solid white; }
+      .album-card > img:nth-child(1) { transform: translate(-6px,-10px) rotate(-3deg); z-index: -2; }
+      .album-card > img:nth-child(2) { transform: translate(7px,-5px) rotate(3deg); z-index: -1; }
+      .album-cover { overflow: hidden; transition: transform .2s ease; }
+      .album-cover > img { width: 100%; height: 100%; object-fit: cover; }
+      .album-cover::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 25%, rgba(7,36,44,.92)); }
+      .album-label { position: absolute; z-index: 1; bottom: 0; padding: 22px; left: 0; right: 0; }
+      .album-title { display: block; font-family: 'Roboto Mono', sans-serif; font-size: clamp(1.05rem, 2.3vw, 1.5rem); font-weight: 600; line-height: 1.35; }
+      .album-count { display: block; margin-top: 5px; font-size: .85rem; }
+      .album-card:hover .album-cover { transform: translateY(-4px); }
+      .album-card[aria-expanded="true"] .album-cover { outline: 3px solid #f6be00; outline-offset: 3px; }
+      .album-card:focus-visible, .gallery-grid a:focus-visible { outline: 3px solid #246e7c; outline-offset: 5px; }
+      .album-panel { scroll-margin-top: 170px; padding: 24px 0; }
+      .album-panel[hidden] { display: none; }
+      .album-panel-heading { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 20px; }
+      .album-panel h2 { font-size: clamp(1.3rem, 3vw, 2rem); margin: 0; }
+      .album-close { border: 1px solid #246e7c; background: white; color: #0b3743; border-radius: 999px; padding: 8px 16px; cursor: pointer; font: inherit; }
+      .gallery-grid { display: flex; flex-direction: column; gap: 8px; }
+      .gallery-row { display: flex; gap: 8px; }
+      .gallery-grid figure { margin: 0; min-width: 0; }
+      .gallery-grid a { position: relative; display: block; width: 100%; height: 100%; }
+      .gallery-grid img { width: 100%; height: 100%; }
+      .lightbox { position: fixed; inset: 0; width: 100vw; max-width: none; height: 100dvh; max-height: none; margin: 0; padding: 64px 60px 80px; border: 0; background: rgba(7,36,44,.97); color: white; }
+      .lightbox::backdrop { background: #07242c; }
+      .lightbox[open] { display: flex; align-items: center; justify-content: center; }
+      .video-badge { position: absolute; bottom: 8px; left: 8px; background: rgba(7,36,44,.9); color: white; border-radius: 999px; padding: 3px 10px; font-size: .8rem; }
+      .lightbox [hidden] { display: none !important; }
+      .lightbox img, .lightbox video { width: 100%; height: 100%; object-fit: contain; }
+      .lightbox button { position: absolute; border: 1px solid rgba(255,255,255,.5); background: #07242c; color: white; border-radius: 50%; width: 44px; height: 44px; cursor: pointer; font-size: 26px; }
+      .lightbox button:focus-visible { outline: 3px solid #f6be00; outline-offset: 3px; }
+      .lightbox-close { top: 14px; right: 16px; }
+      .lightbox-prev { left: 8px; top: calc(50% - 22px); }
+      .lightbox-next { right: 8px; top: calc(50% - 22px); }
+      .lightbox-caption { position: absolute; bottom: 15px; left: 60px; right: 60px; text-align: center; margin: 0; font-size: .9rem; }
+      @media (max-width: 600px) { .album-cards { grid-template-columns: 1fr; gap: 38px; } .album-label { padding: 18px; } .lightbox { padding: 66px 10px 110px; } .lightbox-caption { left: 18px; right: 18px; bottom: 20px; } }
+      @media (prefers-reduced-motion: reduce) { .album-cover { transition: none; } }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="nav-wrap">
+        <a href="index.html#top" class="brand"><img src="images/branding/jko.svg" alt="" width="48" height="48" />Joana Konadu Owusu</a>
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="index.html#experience">Background</a>
+          <a href="research.html">Work</a>
+          <a href="blog.html">Posts</a>
+          <a href="gallery.html" class="active" aria-current="page">Gallery</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="content-wrap">
+        <div class="section-heading">
+          <h1 class="gallery-heading">Gallery</h1>
+          <p>Moments from lab visits, research presentations, conferences, graduation, and trips.</p>
+          <p>Select a group to explore its photos and videos. Select a thumbnail to open the viewer.</p>
+        </div>
+        <div class="album-cards">
+          <button class="album-card" id="album-0" aria-expanded="false" aria-controls="panel-0">
+            <img src="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/arg_nl_presentation_on_tour.jpg" alt="" aria-hidden="true" />
+            <img src="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/argnl.jpg" alt="" aria-hidden="true" />
+            <span class="album-cover"><img src="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/argonnenl.jpg" alt="" /><span class="album-label"><span class="album-title">Lab Tours (Argonne and Fermi)</span><span class="album-count">11 photos · View collection</span></span></span>
+          </button>
+          <button class="album-card" id="album-1" aria-expanded="false" aria-controls="panel-1">
+            <img src="images/gallery/Presentations%20and%20Talks/ai_lightning_talk.PNG" alt="" aria-hidden="true" />
+            <img src="images/gallery/Presentations%20and%20Talks/nserc.jpg" alt="" aria-hidden="true" />
+            <span class="album-cover"><img src="images/gallery/Presentations%20and%20Talks/ai_lightning_tLK.PNG" alt="" /><span class="album-label"><span class="album-title">Presentations and Talks</span><span class="album-count">6 photos · View collection</span></span></span>
+          </button>
+          <button class="album-card" id="album-2" aria-expanded="false" aria-controls="conferences">
+            <img src="images/gallery/Conferences/cvpr.jpg" alt="" aria-hidden="true" />
+            <img src="images/gallery/Conferences/cvpr_expo.jpg" alt="" aria-hidden="true" />
+            <span class="album-cover"><img src="images/gallery/Conferences/cvpr_conference.jpg" alt="" /><span class="album-label"><span class="album-title">Conferences</span><span class="album-count">6 photos · View collection</span></span></span>
+          </button>
+          <button class="album-card" id="album-3" aria-expanded="false" aria-controls="grad-pics">
+            <img src="images/gallery/Grad%20Pics/aavash_grad.jpeg" alt="" aria-hidden="true" />
+            <img src="images/gallery/Grad%20Pics/grad_walk.JPG" alt="" aria-hidden="true" />
+            <span class="album-cover"><img src="images/gallery/Grad%20Pics/ms_grad.JPG" alt="" /><span class="album-label"><span class="album-title">Grad Pics</span><span class="album-count">7 photos · 2 videos · View collection</span></span></span>
+          </button>
+          <button class="album-card" id="album-4" aria-expanded="false" aria-controls="panel-4">
+            <img src="images/gallery/Trips/cloudgate_chi.jpg" alt="" aria-hidden="true" />
+            <img src="images/gallery/Trips/lake_owen.jpg" alt="" aria-hidden="true" />
+            <span class="album-cover"><img src="images/gallery/Trips/lake_michigan.jpg" alt="" /><span class="album-label"><span class="album-title">Trips</span><span class="album-count">15 photos · 1 video · View collection</span></span></span>
+          </button>
+        </div>
+        <section class="album-panel" id="panel-0" aria-labelledby="title-0" hidden>
+          <div class="album-panel-heading"><h2 id="title-0">Lab Tours (Argonne and Fermi)</h2><button class="album-close" type="button">Close group</button></div>
+          <div class="gallery-grid">
+            <figure><a href="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/arg_nl_presentation_on_tour.jpg" aria-label="A presentation during the Argonne laboratory tour (open full image)"><img src="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/arg_nl_presentation_on_tour.jpg" alt="A presentation during the Argonne laboratory tour" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/argnl.jpg" aria-label="Inside Argonne National Laboratory (open full image)"><img src="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/argnl.jpg" alt="Inside Argonne National Laboratory" width="1200" height="1600" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/argonneadphsource.jpg" aria-label="At the Advanced Photon Source at Argonne (open full image)"><img src="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/argonneadphsource.jpg" alt="At the Advanced Photon Source at Argonne" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/argonnenl.jpg" aria-label="Visiting Argonne National Laboratory (open full image)"><img src="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/argonnenl.jpg" alt="Visiting Argonne National Laboratory" width="1600" height="990" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/ferm_nl.jpg" aria-label="Exploring an exhibit at Fermilab (open full image)"><img src="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/ferm_nl.jpg" alt="Exploring an exhibit at Fermilab" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/fermi.jpg" aria-label="Group visit to Fermilab (open full image)"><img src="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/fermi.jpg" alt="Group visit to Fermilab" width="1200" height="1600" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/fermi_lab_centers.jpg" aria-label="Science and architecture exhibit at Fermilab (open full image)"><img src="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/fermi_lab_centers.jpg" alt="Science and architecture exhibit at Fermilab" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/fermi_nl.jpg" aria-label="A view of the Fermilab grounds (open full image)"><img src="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/fermi_nl.jpg" alt="A view of the Fermilab grounds" width="1200" height="1600" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/fermi_quantumcomp.jpg" aria-label="Quantum computing equipment at Fermilab (open full image)"><img src="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/fermi_quantumcomp.jpg" alt="Quantum computing equipment at Fermilab" width="1200" height="1600" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/mobilty_lab_argonne.jpg" aria-label="Visiting the mobility laboratory at Argonne (open full image)"><img src="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/mobilty_lab_argonne.jpg" alt="Visiting the mobility laboratory at Argonne" width="1200" height="1600" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/research_facilty_argonne.jpg" aria-label="Materials engineering research facility at Argonne (open full image)"><img src="images/gallery/Lab%20Tours%20%28Argonne%20and%20Fermi%29/research_facilty_argonne.jpg" alt="Materials engineering research facility at Argonne" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+          </div>
+        </section>
+        <section class="album-panel" id="panel-1" aria-labelledby="title-1" hidden>
+          <div class="album-panel-heading"><h2 id="title-1">Presentations and Talks</h2><button class="album-close" type="button">Close group</button></div>
+          <div class="gallery-grid">
+            <figure><a href="images/gallery/Presentations%20and%20Talks/ai_lightning_tLK.PNG" aria-label="Presenting an AI lightning talk (open full image)"><img src="images/gallery/Presentations%20and%20Talks/ai_lightning_tLK.PNG" alt="Presenting an AI lightning talk" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Presentations%20and%20Talks/ai_lightning_talk.PNG" aria-label="Discussing research during an AI lightning talk (open full image)"><img src="images/gallery/Presentations%20and%20Talks/ai_lightning_talk.PNG" alt="Discussing research during an AI lightning talk" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Presentations%20and%20Talks/nserc.jpg" aria-label="Standing beside a research poster with a colleague (open full image)"><img src="images/gallery/Presentations%20and%20Talks/nserc.jpg" alt="Standing beside a research poster with a colleague" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Presentations%20and%20Talks/nserc_project.jpg" aria-label="Sharing a research project at a poster session (open full image)"><img src="images/gallery/Presentations%20and%20Talks/nserc_project.jpg" alt="Sharing a research project at a poster session" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Presentations%20and%20Talks/oral_presentation_wicv.JPG" aria-label="Presenting at the Women in Computer Vision workshop (open full image)"><img src="images/gallery/Presentations%20and%20Talks/oral_presentation_wicv.JPG" alt="Presenting at the Women in Computer Vision workshop" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Presentations%20and%20Talks/wicv_oral_presentation.JPG" aria-label="Giving an oral presentation at WiCV (open full image)"><img src="images/gallery/Presentations%20and%20Talks/wicv_oral_presentation.JPG" alt="Giving an oral presentation at WiCV" width="1200" height="1600" loading="lazy" decoding="async" /></a></figure>
+          </div>
+        </section>
+        <section class="album-panel" id="conferences" aria-labelledby="title-2" hidden>
+          <div class="album-panel-heading"><h2 id="title-2">Conferences</h2><button class="album-close" type="button">Close group</button></div>
+          <div class="gallery-grid">
+            <figure><a href="images/gallery/Conferences/cvpr.jpg" aria-label="Meeting a fellow attendee at CVPR (open full image)"><img src="images/gallery/Conferences/cvpr.jpg" alt="Meeting a fellow attendee at CVPR" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Conferences/cvpr_conference.jpg" aria-label="With a fellow attendee at the CVPR sign (open full image)"><img src="images/gallery/Conferences/cvpr_conference.jpg" alt="With a fellow attendee at the CVPR sign" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Conferences/cvpr_expo.jpg" aria-label="The CVPR exhibition hall (open full image)"><img src="images/gallery/Conferences/cvpr_expo.jpg" alt="The CVPR exhibition hall" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Conferences/cvpr_oral.jpg" aria-label="Attending an oral presentation at CVPR (open full image)"><img src="images/gallery/Conferences/cvpr_oral.jpg" alt="Attending an oral presentation at CVPR" width="1200" height="1600" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Conferences/cvpr_orall.jpg" aria-label="A research talk at CVPR (open full image)"><img src="images/gallery/Conferences/cvpr_orall.jpg" alt="A research talk at CVPR" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Conferences/cvpr_pic.jpg" aria-label="At the CVPR conference (open full image)"><img src="images/gallery/Conferences/cvpr_pic.jpg" alt="At the CVPR conference" width="1200" height="1600" loading="lazy" decoding="async" /></a></figure>
+          </div>
+        </section>
+        <section class="album-panel" id="grad-pics" aria-labelledby="title-3" hidden>
+          <div class="album-panel-heading"><h2 id="title-3">Grad Pics</h2><button class="album-close" type="button">Close group</button></div>
+          <div class="gallery-grid">
+            <figure><a href="images/gallery/Grad%20Pics/aavash_grad.jpeg" aria-label="Celebrating graduation with a fellow graduate (open full image)"><img src="images/gallery/Grad%20Pics/aavash_grad.jpeg" alt="Celebrating graduation with a fellow graduate" width="1200" height="1600" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Grad%20Pics/grad_walk.JPG" aria-label="Walking at the graduation ceremony (open full image)"><img src="images/gallery/Grad%20Pics/grad_walk.JPG" alt="Walking at the graduation ceremony" width="739" height="1600" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Grad%20Pics/iss_grad_cert.jpg" aria-label="Receiving a graduation certificate (open full image)"><img src="images/gallery/Grad%20Pics/iss_grad_cert.jpg" alt="Receiving a graduation certificate" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Grad%20Pics/iss_grad_speech-web.mp4" data-video="true" aria-label="Graduation speech (play video)"><img src="images/gallery/Grad%20Pics/iss_grad_speech-poster.jpg" alt="Graduation speech" width="720" height="1280" loading="lazy" decoding="async" /><span class="video-badge" aria-hidden="true">▶ Video</span></a></figure>
+            <figure><a href="images/gallery/Grad%20Pics/ms_grad.JPG" aria-label="Graduation portrait in cap and stole (open full image)"><img src="images/gallery/Grad%20Pics/ms_grad.JPG" alt="Graduation portrait in cap and stole" width="1080" height="1350" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Grad%20Pics/ms_grap_pic.JPG" aria-label="Graduation portrait in cap and gown (open full image)"><img src="images/gallery/Grad%20Pics/ms_grap_pic.JPG" alt="Graduation portrait in cap and gown" width="1080" height="1350" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Grad%20Pics/msc_grad_hooding-web.mp4" data-video="true" aria-label="Master’s graduation hooding ceremony (play video)"><img src="images/gallery/Grad%20Pics/msc_grad_hooding-poster.jpg" alt="Master’s graduation hooding ceremony" width="576" height="1024" loading="lazy" decoding="async" /><span class="video-badge" aria-hidden="true">▶ Video</span></a></figure>
+            <figure><a href="images/gallery/Grad%20Pics/msc_graduation.JPG" aria-label="Celebrating graduation outdoors (open full image)"><img src="images/gallery/Grad%20Pics/msc_graduation.JPG" alt="Celebrating graduation outdoors" width="543" height="405" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Grad%20Pics/order_of_eng_induction_grad.jpg" aria-label="Order of the Engineer induction (open full image)"><img src="images/gallery/Grad%20Pics/order_of_eng_induction_grad.jpg" alt="Order of the Engineer induction" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+          </div>
+        </section>
+        <section class="album-panel" id="panel-4" aria-labelledby="title-4" hidden>
+          <div class="album-panel-heading"><h2 id="title-4">Trips</h2><button class="album-close" type="button">Close group</button></div>
+          <div class="gallery-grid">
+            <figure><a href="images/gallery/Trips/bark_walk_snowyRangetrip-web.mp4" data-video="true" aria-label="A walk during the Snowy Range trip (play video)"><img src="images/gallery/Trips/bark_walk_snowyRangetrip-poster.jpg" alt="A walk during the Snowy Range trip" width="720" height="1280" loading="lazy" decoding="async" /><span class="video-badge" aria-hidden="true">▶ Video</span></a></figure>
+            <figure><a href="images/gallery/Trips/cloudgate_chi.jpg" aria-label="Visiting Cloud Gate in Chicago (open full image)"><img src="images/gallery/Trips/cloudgate_chi.jpg" alt="Visiting Cloud Gate in Chicago" width="1200" height="1600" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Trips/lake_michigan.jpg" aria-label="By Lake Michigan with the Chicago skyline (open full image)"><img src="images/gallery/Trips/lake_michigan.jpg" alt="By Lake Michigan with the Chicago skyline" width="1200" height="1600" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Trips/lake_owen.jpg" aria-label="Relaxing beside Lake Owen (open full image)"><img src="images/gallery/Trips/lake_owen.jpg" alt="Relaxing beside Lake Owen" width="1200" height="1600" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Trips/lakeowen_snowyrange.jpg" aria-label="Lake Owen in the Snowy Range (open full image)"><img src="images/gallery/Trips/lakeowen_snowyrange.jpg" alt="Lake Owen in the Snowy Range" width="1200" height="1600" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Trips/medbow.jpg" aria-label="Snowy scenery in Medicine Bow (open full image)"><img src="images/gallery/Trips/medbow.jpg" alt="Snowy scenery in Medicine Bow" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Trips/medbow_peak.jpg" aria-label="Snow-covered peaks in Medicine Bow (open full image)"><img src="images/gallery/Trips/medbow_peak.jpg" alt="Snow-covered peaks in Medicine Bow" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Trips/michigan_riv_chi.jpg" aria-label="Kayakers on the river in Chicago (open full image)"><img src="images/gallery/Trips/michigan_riv_chi.jpg" alt="Kayakers on the river in Chicago" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Trips/michigan_river.jpg" aria-label="River and city views in Chicago (open full image)"><img src="images/gallery/Trips/michigan_river.jpg" alt="River and city views in Chicago" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Trips/sn_range.jpg" aria-label="Exploring the Snowy Range (open full image)"><img src="images/gallery/Trips/sn_range.jpg" alt="Exploring the Snowy Range" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Trips/snowy_range.jpg" aria-label="The Snowy Range scenic overlook (open full image)"><img src="images/gallery/Trips/snowy_range.jpg" alt="The Snowy Range scenic overlook" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Trips/snowy_range_forest.JPG" aria-label="Among the trees in the Snowy Range (open full image)"><img src="images/gallery/Trips/snowy_range_forest.JPG" alt="Among the trees in the Snowy Range" width="1200" height="1600" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Trips/snw_range_forest_road.JPG" aria-label="Walking along a forest road in the Snowy Range (open full image)"><img src="images/gallery/Trips/snw_range_forest_road.JPG" alt="Walking along a forest road in the Snowy Range" width="1200" height="1600" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Trips/southisland_park_chicago.jpg" aria-label="A pond in a Chicago park (open full image)"><img src="images/gallery/Trips/southisland_park_chicago.jpg" alt="A pond in a Chicago park" width="1200" height="1600" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Trips/wall_art_chi.jpg" aria-label="Chicago street art (open full image)"><img src="images/gallery/Trips/wall_art_chi.jpg" alt="Chicago street art" width="1600" height="1200" loading="lazy" decoding="async" /></a></figure>
+            <figure><a href="images/gallery/Trips/wood_landing_ranch_laramie.jpg" aria-label="Horseback riding at Wood Landing Ranch (open full image)"><img src="images/gallery/Trips/wood_landing_ranch_laramie.jpg" alt="Horseback riding at Wood Landing Ranch" width="1200" height="1600" loading="lazy" decoding="async" /></a></figure>
+          </div>
+        </section>
+      </div>
+    </main>
+    <dialog class="lightbox" aria-label="Photo and video viewer" aria-describedby="lightbox-caption">
+      <button class="lightbox-close" aria-label="Close viewer" autofocus>×</button>
+      <button class="lightbox-prev" aria-label="Previous item">‹</button>
+      <img alt="" />
+      <video controls playsinline preload="metadata" hidden aria-label="Gallery video"></video>
+      <button class="lightbox-next" aria-label="Next item">›</button>
+      <p class="lightbox-caption" id="lightbox-caption" aria-live="polite"></p>
+    </dialog>
+    <script>
+      const cards = [...document.querySelectorAll('.album-card')];
+      const panels = [...document.querySelectorAll('.album-panel')];
+      const collections = panels.map(panel => {
+        const figures = [...panel.querySelectorAll('figure')];
+        // Interleave orientations where available before choosing balanced rows.
+        const portrait = figures.filter(f => f.querySelector('img').width < f.querySelector('img').height);
+        const landscape = figures.filter(f => !portrait.includes(f));
+        const mixed = [];
+        while (portrait.length || landscape.length) {
+          if (landscape.length) mixed.push(landscape.shift());
+          if (portrait.length) mixed.push(portrait.shift());
+        }
+        return mixed;
+      });
+      function justify(index) {
+        const grid = panels[index].querySelector('.gallery-grid');
+        const width = grid.clientWidth;
+        if (!width) return;
+        const figures = collections[index];
+        const ratios = figures.map(f => {
+          const img = f.querySelector('img');
+          return Number(img.getAttribute('width')) / Number(img.getAttribute('height'));
+        });
+        const target = width < 600 ? 180 : 260;
+        const costs = Array(figures.length + 1).fill(Infinity);
+        const breaks = [];
+        costs[figures.length] = 0;
+        // Choose row breaks across the whole album, including the final row.
+        for (let start = figures.length - 1; start >= 0; start--) {
+          let sum = 0;
+          for (let end = start; end < figures.length; end++) {
+            sum += ratios[end];
+            const height = (width - 8 * (end - start)) / sum;
+            if (height <= 0) break;
+            const cost = Math.pow(height - target, 2) + costs[end + 1];
+            if (cost < costs[start]) { costs[start] = cost; breaks[start] = end + 1; }
+          }
+        }
+        grid.replaceChildren();
+        for (let start = 0; start < figures.length;) {
+          const end = breaks[start];
+          const sum = ratios.slice(start, end).reduce((a, b) => a + b, 0);
+          const height = (width - 8 * (end - start - 1)) / sum;
+          const row = document.createElement('div');
+          row.className = 'gallery-row';
+          row.style.height = `${height}px`;
+          for (let i = start; i < end; i++) {
+            figures[i].style.width = `${height * ratios[i]}px`;
+            figures[i].style.flex = `0 0 ${height * ratios[i]}px`;
+            row.append(figures[i]);
+          }
+          grid.append(row);
+          start = end;
+        }
+      }
+      cards.forEach((card, index) => {
+        card.addEventListener('click', () => {
+          const open = card.getAttribute('aria-expanded') !== 'true';
+          cards.forEach((other, i) => {
+            other.setAttribute('aria-expanded', String(open && i === index));
+            panels[i].hidden = !(open && i === index);
+          });
+          if (open) {
+            justify(index);
+            panels[index].scrollIntoView({ behavior: 'instant', block: 'start' });
+          }
+        });
+        panels[index].querySelector('.album-close').addEventListener('click', () => {
+          panels[index].hidden = true;
+          card.setAttribute('aria-expanded', 'false');
+          card.focus();
+        });
+        new ResizeObserver(() => { if (!panels[index].hidden) justify(index); })
+          .observe(panels[index].querySelector('.gallery-grid'));
+      });
+      // Open the requested album when arriving from a blog post or shared link.
+      function openLinkedAlbum() {
+        const id = location.hash.slice(1);
+        const index = panels.findIndex(panel => panel.id === id);
+        if (index < 0) return;
+        if (panels[index].hidden) cards[index].click();
+        else panels[index].scrollIntoView({ behavior: 'instant', block: 'start' });
+      }
+      window.addEventListener('hashchange', openLinkedAlbum);
+      openLinkedAlbum();
+      const lightbox = document.querySelector('.lightbox');
+      const fullImage = lightbox.querySelector('img');
+      const fullVideo = lightbox.querySelector('video');
+      function stopVideo() {
+        fullVideo.pause();
+        fullVideo.removeAttribute('src');
+        fullVideo.load();
+      }
+      let activePhotos = [], activePhoto = 0, opener, previousOverflow;
+      function showPhoto(index) {
+        activePhoto = (index + activePhotos.length) % activePhotos.length;
+        const photo = activePhotos[activePhoto];
+        stopVideo();
+        const link = photo.closest('a');
+        const isVideo = link.dataset.video === 'true';
+        fullImage.hidden = isVideo;
+        fullVideo.hidden = !isVideo;
+        if (isVideo) {
+          fullVideo.poster = photo.src;
+          fullVideo.src = link.href;
+          fullVideo.setAttribute('aria-label', photo.alt);
+        } else {
+          fullImage.src = link.href;
+          fullImage.alt = photo.alt;
+        }
+        document.querySelector('.lightbox-caption').textContent = `${photo.alt} · ${activePhoto + 1} / ${activePhotos.length}`;
+      }
+      collections.forEach(photos => photos.forEach(figure => {
+        const link = figure.querySelector('a');
+        link.removeAttribute('target');
+        link.addEventListener('click', event => {
+          event.preventDefault();
+          opener = link;
+          activePhotos = photos.map(f => f.querySelector('img'));
+          showPhoto(photos.indexOf(figure));
+          previousOverflow = document.body.style.overflow;
+          document.body.style.overflow = 'hidden';
+          lightbox.showModal();
+        });
+      }));
+      lightbox.querySelector('.lightbox-close').addEventListener('click', () => lightbox.close());
+      lightbox.querySelector('.lightbox-prev').addEventListener('click', () => showPhoto(activePhoto - 1));
+      lightbox.querySelector('.lightbox-next').addEventListener('click', () => showPhoto(activePhoto + 1));
+      lightbox.addEventListener('keydown', event => {
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+          event.preventDefault();
+          showPhoto(activePhoto + (event.key === 'ArrowLeft' ? -1 : 1));
+        }
+      });
+      lightbox.addEventListener('click', event => { if (event.target === lightbox) lightbox.close(); });
+      lightbox.addEventListener('close', () => {
+        stopVideo();
+        document.body.style.overflow = previousOverflow;
+        opener?.focus({ preventScroll: true });
+      });
+    </script>
+  </body>
+</html>
