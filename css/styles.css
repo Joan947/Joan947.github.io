@@ -702,3 +702,42 @@ footer h2 {
   .hi-part, .hi-rest { clip-path: none; animation: none; }
   .hi-bang { opacity: 1; animation: none; }
 }
+
+/* Mobile navigation; links remain visible when JavaScript is unavailable. */
+.nav-toggle { display: none; }
+@media screen and (max-width: 700px) {
+  .nav-ready .nav-wrap {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .nav-ready .brand { flex: 1; min-width: 0; }
+  .nav-ready .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    border: 1px solid currentColor;
+    border-radius: 8px;
+    color: #fff;
+    background: transparent;
+    cursor: pointer;
+  }
+  .nav-toggle svg { width: 22px; height: 22px; }
+  .nav-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+  .nav-ready .site-nav { display: none; flex-basis: 100%; }
+  .nav-ready .nav-toggle[aria-expanded="true"] + .site-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding-top: 0.5rem;
+  }
+  .nav-ready .site-nav a { padding: 0.65rem 0; }
+  .nav-toggle .close-icon { display: none; }
+  .nav-toggle[aria-expanded="true"] .menu-icon { display: none; }
+  .nav-toggle[aria-expanded="true"] .close-icon { display: block; }
+}
