@@ -23,8 +23,8 @@
   --color-highlight: #f4c542;
   --color-eyebrow: #f6be00;
   --color-mid: #246e7c;
-  --color-soft: var(--color-soft);
-  --color-soft-hover: var(--color-soft-hover);
+  --color-soft: #93dae1;
+  --color-soft-hover: #7ecfd8;
   --color-section-alt: #f4fbfc;
   --color-section-alt-2: #f8fcfd;
   --color-work-bg: #57adb8;
@@ -665,15 +665,16 @@ footer h2 {
 
 .brand > img { flex: 0 0 60px; width: 60px; height: 60px; }
 
-/* Hero greeting: same serif as the name in the header (Bodoni Moda), semi-bold, stretched 10% */
+
+/* Original homepage greeting typography. */
 .hero-section h1 {
-  font-family: 'Bodoni Moda', 'Bodoni 72', Didot, Georgia, serif;
-  font-weight: 600;
-  line-height: 1.15;
-  padding-bottom: 0.12em; /* room for descenders inside the typing animation */
-  letter-spacing: 0.01em;
-  transform: scaleX(1.10);
-  transform-origin: left center;
+  font-family: 'Roboto Mono', sans-serif;
+  font-weight: 700;
+  -webkit-text-stroke: 0.45px currentColor;
+  line-height: 1.05;
+  padding-bottom: 0;
+  letter-spacing: normal;
+  transform: none;
 }
 
 /* Greeting: "Hi" types in, the "!" blinks like a cursor, then "I am Joana" continues. */
@@ -740,4 +741,9 @@ footer h2 {
   .nav-toggle .close-icon { display: none; }
   .nav-toggle[aria-expanded="true"] .menu-icon { display: none; }
   .nav-toggle[aria-expanded="true"] .close-icon { display: block; }
+}
+@media screen and (max-width: 749px) {
+  .typed.typed-line-1, .typed-line-1 span { white-space: normal; display: inline; }
+  .hi-part, .hi-rest { clip-path: none; animation: none; }
+  .hi-bang { opacity: 1; animation: none; }
 }
